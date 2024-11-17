@@ -169,9 +169,7 @@ app.put('/alterarUsuario', upload.fields([{
 })
 
 app.get('/usuario/:id', async function(req, res){
-    const usuarioEncontrado = await usuario.findByPk(req.params.ids
-        
-    )
+    const usuarioEncontrado = await usuario.findByPk(req.params.id)
     res.json(usuarioEncontrado)
 })
 
