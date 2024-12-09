@@ -23,14 +23,18 @@ module.exports = {
         references:{
           model:"usuarios",
           key:"id"
-        }
+        },
+        onDelete: 'CASCADE', 
+        onUpdate: 'CASCADE',
       },
       duvidaId: {
         type: Sequelize.INTEGER,
         references:{
           model:"duvidas",
           key:"id"
-        }
+        },
+        onDelete: 'CASCADE', 
+        onUpdate: 'CASCADE',
       },
       createdAt: {
         allowNull: false,

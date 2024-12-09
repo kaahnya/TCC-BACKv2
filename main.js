@@ -50,7 +50,7 @@ app.get('/usuarios', async function(req, res){
 //rota para obter os usuarios
 
 app.get('/duvidas', async function(req, res){
-    const duvidas = await duvida.findAll({include:[{model:comentario, as:'comentario'}]})
+    const duvidas = await duvida.findAll({include:[{model:comentario, as:'comentario',include: [{ model: usuario, as: 'usuario',},],},{model: usuario, as: 'usuario'}]})
     res.json(duvidas)
 })
 //rota para obter os duvidas
@@ -134,9 +134,21 @@ app.post('/duvida', upload.fields([{
     name:'duvida', maxCount:1
 },
 ]), async function (req, res){
-    const {titulo, materia, conteudo, descDuvida, usuarioId} = req.body
-    const newduvida = await duvida.create({ titulo, materia, conteudo, descDuvida, duvidaImg:req.files['duvida'][0].path, usuarioId})
-    res.json (newduvida)
+    const { titulo, materia, conteudo, descDuvida, usuarioId } = req.body;
+
+    const duvidaImg = req.files && req.files['duvida'] && req.files['duvida'][0] 
+        ? req.files['duvida'][0].path 
+        : null;
+        const newDuvida = await duvida.create({
+            titulo,
+            materia,
+            conteudo,
+            descDuvida,
+            duvidaImg, 
+            usuarioId
+        })
+        res.json(newDuvida);
+
 })
 
 app.delete('/usuario/:id', async function(req, res){
@@ -150,7 +162,12 @@ app.post('/comentario', upload.fields([{
 },
 ]), async function (req, res){
     const {texto, resposta, usuarioId, duvidaId} = req.body
-    const newcomentario = await comentario.create({ texto, resposta, imgComentario:req.files['imgComentario'][0].path, usuarioId, duvidaId})
+
+    const imgComentario = req.files && req.files['imgComentario'] && req.files['imgComentario'][0] 
+    ? req.files['imgComentario'][0].path 
+    : null;
+
+    const newcomentario = await comentario.create({ texto, resposta, imgComentario, usuarioId, duvidaId})
     res.json (newcomentario)
 })
 
