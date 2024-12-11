@@ -157,6 +157,12 @@ app.delete('/usuario/:id', async function(req, res){
     res.json(usuarioApagado)
 })
 
+app.delete('/duvida/:id', async function(req, res){
+    const duvidaApagada = await duvida.findByPk(req.params.id)
+    const duvidaAchada = await duvida.destroy({where:{id:Number(req.params.id)}})   
+    res.json(duvidaApagada)
+})
+
 app.post('/comentario', upload.fields([{
     name:'imgComentario', maxCount:1
 },
@@ -185,9 +191,20 @@ app.put('/alterarUsuario', upload.fields([{
     res.json (newusuario)
 })
 
-app.get('/usuario/:id', async function(req, res){
+app.get('/usuario/:id/duvidas', async function(req, res){
+    const usuarioEncontrado = await duvida.findAll({include:[{model:comentario, as:'comentario',include: [{ model: usuario, as: 'usuario',},],},{model: usuario, as: 'usuario'}], where:{usuarioId : req.params.id}})
+    res.json(usuarioEncontrado)
+})
+
+app.get('/duvida/:id', async function(req, res){
     const usuarioEncontrado = await usuario.findByPk(req.params.id)
     res.json(usuarioEncontrado)
 })
+
+app.get('/usuario/:id', async function(req, res){
+    const usuarioFound = await usuario.findByPk(req.params.id)
+    res.json(usuarioFound)
+})
+
 
 app.listen(3000);
