@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       cpf: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       materia: {
         type: Sequelize.STRING

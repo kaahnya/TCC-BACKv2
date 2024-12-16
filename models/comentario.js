@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   comentario.init({
     texto: DataTypes.STRING,
-    resposta: DataTypes.STRING,
+    monitor: DataTypes.STRING,
     imgComentario: DataTypes.STRING,
     usuarioId: DataTypes.INTEGER,
     duvidaId: DataTypes.INTEGER

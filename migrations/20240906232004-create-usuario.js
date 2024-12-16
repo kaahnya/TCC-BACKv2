@@ -10,16 +10,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nome: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       cpf: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       },
       email: {
-        type: Sequelize.STRING
-      },
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+            },
       senha: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       desc: {
         type: Sequelize.STRING

@@ -12,7 +12,7 @@ module.exports = {
       texto: {
         type: Sequelize.STRING
       },
-      resposta: {
+      monitor: {
         type: Sequelize.STRING
       },
       imgComentario: {
